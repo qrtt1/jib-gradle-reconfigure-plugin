@@ -19,7 +19,7 @@ pluginManagement {
     resolutionStrategy {
         eachPlugin {
             if (requested.id.id == "io.github.qrtt1.jib") {
-                useModule("io.github.qrtt1.jib:jib-gradle-reconfigure-plugin:0.3.1")
+                useModule("io.github.qrtt1:jib-gradle-reconfigure-plugin:0.3.1")
             }
         }
     }
@@ -38,3 +38,23 @@ pluginManagement {
 ```
 
 To use the GitHub Package Registry, you need to use a Classic Personal Access Token with the "read:packages" permission.
+
+
+### Using JitPack
+
+```groovy
+pluginManagement {
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == "io.github.qrtt1.jib") {
+                useModule("io.github.qrtt1:jib-gradle-reconfigure-plugin:0.3.1")
+            }
+        }
+    }
+
+    repositories {
+        gradlePluginPortal()
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
