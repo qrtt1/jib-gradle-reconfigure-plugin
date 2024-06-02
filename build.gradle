@@ -24,7 +24,7 @@ test {
 }
 
 
-version = '0.1'
+version = '0.2'
 group = 'io.github.qrtt1'
 
 gradlePlugin {
