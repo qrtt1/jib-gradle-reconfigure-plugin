@@ -3,27 +3,6 @@ plugins {
     id "com.gradle.plugin-publish" version "1.2.1"
 }
 
-group = 'org.example'
-version = '1.0-SNAPSHOT'
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-
-    testImplementation platform("org.spockframework:spock-bom:2.2-groovy-3.0")
-    testImplementation 'org.spockframework:spock-core'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-}
-
-test {
-    useJUnitPlatform()
-}
-
-
 version = '0.2'
 group = 'io.github.qrtt1'
 
@@ -39,4 +18,23 @@ gradlePlugin {
             tags.set(['jib'])
         }
     }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    testImplementation platform("org.spockframework:spock-bom:2.2-groovy-3.0")
+    testImplementation 'org.spockframework:spock-core'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation gradleTestKit()
+    testImplementation 'commons-io:commons-io:2.16.1'
+}
+
+test {
+    useJUnitPlatform()
 }

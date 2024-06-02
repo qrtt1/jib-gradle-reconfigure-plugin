@@ -13,18 +13,19 @@ class JibReconfigurePlugin implements Plugin<Project> {
     void apply(Project project) {
         Plugin jib = project.plugins.findPlugin("com.google.cloud.tools.jib")
         if (jib != null) {
-            reconfigureJib(project, jib);
+            reconfigureJib(project);
         }
+
     }
 
-    private static void reconfigureJib(Project currentProject, Plugin jibPlugin) {
+    private static void reconfigureJib(Project currentProject) {
         info("Found jib-plugin for project[${currentProject.name}]")
         currentProject.afterEvaluate {
             if (currentProject.hasProperty(RELEASE_VERSION)) {
-                handleReconfigure()
+                handleReconfigure(currentProject)
             } else {
-                warn("ext[releaseVersion] not found.")
-                warn("skip patching profile image process.")
+                info("ext[releaseVersion] not found.")
+                info("skip patching image process.")
             }
         }
     }
@@ -32,7 +33,12 @@ class JibReconfigurePlugin implements Plugin<Project> {
     private static void handleReconfigure(Project currentProject) {
         String input = currentProject.getProperties().get(RELEASE_VERSION) as String;
         ReleaseVersion rv = new ReleaseVersion(input)
-        if (rv.isValidReleaseVersion && !rv.isDefaultProfile) {
+        if (rv.isValidReleaseVersion) {
+            if (rv.isDefaultProfile) {
+                info("Found default profile[${rv.profile}]")
+                info("skip patching image process.")
+                return
+            }
             def jibExt = currentProject.extensions.findByName(JIB_EXTENSION_NAME)
             def defaultRepo = jibExt.to.image as String
             def envName = toEnvName(defaultRepo)
@@ -47,6 +53,7 @@ class JibReconfigurePlugin implements Plugin<Project> {
             jibExt.to.image = System.getenv(envName)
             info("assign project.ext.JIB_OVERRIDE_REPO=${System.getenv(envName)}")
             currentProject.properties.put("JIB_OVERRIDE_REPO", System.getenv(envName))
+
         }
     }
 

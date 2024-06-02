@@ -12,5 +12,4 @@ class JibReconfigurePluginTest extends Specification {
         envName == "BARBAR_API_REPO"
     }
 
-
 }
