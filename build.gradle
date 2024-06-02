@@ -4,14 +4,14 @@ plugins {
 }
 
 version = '0.3.1'
-group = 'io.github.qrtt1.jib'
+group = 'io.github.qrtt1'
 
 gradlePlugin {
     website = 'https://github.com/qrtt1/jib-gradle-reconfigure-plugin'
     vcsUrl = 'https://github.com/qrtt1/jib-gradle-reconfigure-plugin'
     plugins {
         greetingsPlugin {
-            id = group
+            id = "${group}.jib"
             implementationClass = 'io.github.qrtt1.jib.JibReconfigurePlugin'
             displayName = 'Jib Reconfigure Plugin'
             description = 'Make jib reconfigurable from environment variables!'
@@ -37,6 +37,30 @@ publishing {
             artifactId = 'jib-gradle-reconfigure-plugin'
             version = version
             from(components.java)
+            pom {
+                name = "jib-gradle-reconfigure-plugin"
+                description = "A Gradle plugin that allows you to dynamically reconfigure the Jib target image settings using environment variables."
+                url = "https://github.com/qrtt1/jib-gradle-reconfigure-plugin"
+                licenses {
+                    license {
+                        name = "MIT License"
+                        url = "https://opensource.org/licenses/MIT"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "qrtt1"
+                        name = "Ching Yi, Chan"
+                        email = "chingyichan.tw@gmail.com"
+                    }
+                }
+                scm {
+                    connection = "scm:git:git://github.com/qrtt1/jib-gradle-reconfigure-plugin.git"
+                    developerConnection = "scm:git:ssh://github.com/qrtt1/jib-gradle-reconfigure-plugin.git"
+                    url = "https://github.com/qrtt1/jib-gradle-reconfigure-plugin"
+                }
+            }
+
         }
     }
 }
