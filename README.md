@@ -32,15 +32,17 @@ export BARBAR_API_REPO='my-custom-registry.io/foo/barbar-api'
 
 4. Run the Gradle build command, and the plugin will reconfigure the Jib target image based on the provided environment variable.
 
-## Installation
+## Usage
 
 Add the following to your `build.gradle` file:
 
 ```groovy
 plugins {
-    id 'io.github.qrtt1.jib' version '0.2'
+    id 'io.github.qrtt1.jib'
 }
 ```
+
+Please check details at the [installation](INSTALL.md) document.
 
 ## Contributing
 
